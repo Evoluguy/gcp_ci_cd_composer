@@ -1,0 +1,14 @@
+# Deploy the DAGs to your composer environment DAGs GCS folder
+steps:
+- name: gcr.io/cloud-builders/gsutil
+  id: Deploy DAGs
+  args:
+  - -m
+  - rsync
+  - -r
+  - -c
+  - -x
+  - .*\.pyc|airflow_monitoring.py
+  - /workspace/${_DIRECTORY}/dags/
+  - ${_DEPLOY_DAGS_LOCATION}
+  dir: ${_DIRECTORY}
