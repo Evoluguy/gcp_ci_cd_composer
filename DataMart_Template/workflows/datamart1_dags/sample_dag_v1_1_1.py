@@ -17,7 +17,7 @@ default_args={
 }
 
 
-dag = DAG('Datamart Template',
+dag = DAG('Datamart-Template',
         default_args=default_args,
         description='Datamart Template',
         schedule_interval=timedelta(days=1)
