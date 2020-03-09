@@ -31,6 +31,7 @@ display_msg = BashOperator(task_id='print_msg',
 run_bigquery = BigQueryOperator(
     task_id='get_sample_data',
     sql='DataMart_Template/bigquery/bigquery_sample.sql',
-    use_legacy_sql=False
+    use_legacy_sql=False,
+    dag=dag
 )
 display_msg.set_downstream(run_bigquery)
