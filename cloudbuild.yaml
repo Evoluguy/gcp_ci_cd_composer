@@ -1,0 +1,25 @@
+# Deploy the DAGs to your composer environment DAGs GCS folder
+steps:
+- name: gcr.io/cloud-builders/gsutil
+  id: Deploy SQL
+  args:
+  - -m
+  - rsync
+  - -r
+  - -c
+  - -x
+  - .*\.pyc|airflow_monitoring.py
+  - DataMart_Template/bigquery/
+  - gs://europe-west2-datamart-compo-d5ba1bb5-bucket/dags/sql/
+  
+- name: gcr.io/cloud-builders/gsutil
+  id: Deploy DAGs
+  args:
+  - -m
+  - rsync
+  - -r
+  - -c
+  - -x
+  - .*\.pyc|airflow_monitoring.py
+  - DataMart_Template/workflows/datamart1_dags/
+  - gs://europe-west2-datamart-compo-d5ba1bb5-bucket/dags/
