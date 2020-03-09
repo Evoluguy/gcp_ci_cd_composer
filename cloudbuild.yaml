@@ -9,5 +9,5 @@ steps:
   - -c
   - -x
   - .*\.pyc|airflow_monitoring.py
-  - DataMart_Template/workflows/datamart1_dags/sample_dag_v1_1_1.py
+  - DataMart_Template/workflows/datamart1_dags/
   - gs://europe-west2-datamart-compo-d5ba1bb5-bucket/dags/
