@@ -7,7 +7,7 @@ from airflow.contrib.operators.bigquery_operator import BigQueryOperator
 
 default_args={
     'owner': 'airflow',
-    'start_date': airflow.utils.dates.days_ago(1),
+    'start_date': airflow.utils.dates.days_ago(2),
     'depends_on_past': False,
     'email': ['airflow@example.com'],
     'email_on_failure': False,
