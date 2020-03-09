@@ -2,7 +2,8 @@ from datetime import timedelta
 import airflow
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
-from airflow.operators.bigquery_operator import BigQueryOperator
+from airflow.contrib.operators.bigquery_operator import BigQueryOperator
+# from airflow.contrib.operators import bigquery_operator
 
 default_args={
     'owner': 'airflow',
