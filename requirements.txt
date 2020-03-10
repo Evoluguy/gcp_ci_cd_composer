@@ -1,1 +1,2 @@
+werkzeug
 apache-airflow[gcp]==1.10.6
