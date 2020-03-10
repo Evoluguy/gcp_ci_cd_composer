@@ -25,7 +25,7 @@ dag = DAG('dm_dag_1_v1_1_1',
 
 
 display_msg = BashOperator(task_id='print_msg',
-                    bash_command='echo "Connecting Bigquery..............."' ,
+                    bash_command='echo "Connecting Bigquery from dag1..............."' ,
                     dag=dag)
 
 run_bigquery = BigQueryOperator(
