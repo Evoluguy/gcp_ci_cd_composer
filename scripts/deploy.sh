@@ -12,7 +12,7 @@ function get-dags-status() {
         --location "$REGION" list_dags 2>&1 | sed -e '1,/DAGS/d' | \
         tail -n +2 | sed '/^[[:space:]]*$/d'| grep -iE "$DAGNAME_REGEX" )
 
-    DAGS_TO_RUN=$(cat ../conf/dags_to_deploy.txt | grep -iE "$DAGNAME_REGEX" )
+    DAGS_TO_RUN=$(cat conf/dags_to_deploy.txt | grep -iE "$DAGNAME_REGEX" )
 
     DAGS_TO_STOP=$(arrayDiff "${RUNNING_DAGS[@]}" "${DAGS_TO_RUN[@]}")
     DAGS_TO_START=$(arrayDiff "${DAGS_TO_RUN[@]}" "${RUNNING_DAGS[@]}")
