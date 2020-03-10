@@ -15,7 +15,7 @@ steps:
   args:
   - -m
   - unittest
-  - tests/sample_test.py
+  - DataMart_Template/tests/sample_test.py
   
 
   # Deploy the DAGs to your composer environment DAGs GCS folder
