@@ -10,12 +10,8 @@ steps:
   id: Validation Test
   # Validate the integrity of the DAG files.
   entrypoint: python
-  # env:
-  # - AIRFLOW__CORE__DAGS_FOLDER=/workspace/${_DIRECTORY}/dags
   args:
-  - -m
-  - unittest
-  - DataMart_Template/tests/sample_test.py
+    [ '-m', 'unittest', '${_ROOT_DIR}/tests/sample_test.py']
   
 
   # Deploy the DAGs to your composer environment DAGs GCS folder
@@ -24,8 +20,8 @@ steps:
   args:
     [ '-m',
     'rsync','-r', '-c','-x', '.*\.pyc|airflow_monitoring.py',
-    'DataMart_Template/bigquery/',
-    'gs://europe-west2-datamart-compo-d5ba1bb5-bucket/dags/sql/'
+    '${_ROOT_DIR}/bigquery/',
+    '${_COMPOSER_BUCKET_URL}/dags/sql/'
     ]
     
 - name: gcr.io/cloud-builders/gsutil
@@ -37,8 +33,8 @@ steps:
   - -c
   - -x
   - .*\.pyc|airflow_monitoring.py
-  - DataMart_Template/workflows/datamart1_dags/
-  - gs://europe-west2-datamart-compo-d5ba1bb5-bucket/dags/
+  - ${_ROOT_DIR}/workflows/datamart1_dags/
+  - ${_COMPOSER_BUCKET_URL}/dags/
 
 substitutions:
   _AIRFLOW_VERSION: 1.10.6
