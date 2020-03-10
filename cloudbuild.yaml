@@ -12,6 +12,12 @@ steps:
   entrypoint: python
   args:
     [ '-m', 'unittest', 'tests/sample_test.py']
+
+- name: 'gcr.io/$PROJECT_ID/airflow:${_AIRFLOW_VERSION}'
+  id: Check DAG's
+  entrypoint: bash
+  args:
+    [ 'scripts/deploy.sh']
   
   # Deploy the DAGs to your composer environment DAGs GCS folder
 - name: 'gcr.io/cloud-builders/gsutil'
