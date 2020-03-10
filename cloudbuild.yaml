@@ -1,40 +1,36 @@
 steps:
+
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/airflow:${_AIRFLOW_VERSION}',
         '-t', 'gcr.io/$PROJECT_ID/airflow',
         '--build-arg', 'AIRFLOW_VERSION=${_AIRFLOW_VERSION}',
         '.']
 
-
 - name: 'gcr.io/$PROJECT_ID/airflow:${_AIRFLOW_VERSION}'
   id: Validation Test
   # Validate the integrity of the DAG files.
   entrypoint: python
   args:
-    [ '-m', 'unittest', '${_ROOT_DIR}/tests/sample_test.py']
+    [ '-m', 'unittest', 'tests/sample_test.py']
   
-
   # Deploy the DAGs to your composer environment DAGs GCS folder
-- name: gcr.io/cloud-builders/gsutil
-  id: Deploy SQL
+- name: 'gcr.io/cloud-builders/gsutil'
+  id: Deploy SQL to composer
   args:
     [ '-m',
     'rsync','-r', '-c','-x', '.*\.pyc|airflow_monitoring.py',
-    '${_ROOT_DIR}/bigquery/',
-    '${_COMPOSER_BUCKET_URL}/dags/sql/'
+    'bql/',
+    '${_COMPOSER_BUCKET_URL}/dags/bql/'
     ]
     
-- name: gcr.io/cloud-builders/gsutil
-  id: Deploy DAGs
+- name: 'gcr.io/cloud-builders/gsutil'
+  id: Deploy DAGs to composer
   args:
-  - -m
-  - rsync
-  - -r
-  - -c
-  - -x
-  - .*\.pyc|airflow_monitoring.py
-  - ${_ROOT_DIR}/workflows/datamart1_dags/
-  - ${_COMPOSER_BUCKET_URL}/dags/
+    [ '-m',
+    'rsync','-r', '-c','-x', '.*\.pyc|airflow_monitoring.py',
+    'dags/',
+    '${_COMPOSER_BUCKET_URL}/dags/'
+    ]
 
 substitutions:
   _AIRFLOW_VERSION: 1.10.6
