@@ -17,15 +17,15 @@ default_args={
 }
 
 
-dag = DAG('Datamart_Template',
+dag = DAG('sample_dag_v1_1_1',
         default_args=default_args,
-        description='Datamart Template',
+        description='Datamart Template DAG',
         schedule_interval=timedelta(days=1)
         )
 
 
 display_msg = BashOperator(task_id='print_msg',
-                    bash_command='echo "Hello world, Connecting Bigquery..............."' ,
+                    bash_command='echo "Connecting Bigquery..............."' ,
                     dag=dag)
 
 run_bigquery = BigQueryOperator(
