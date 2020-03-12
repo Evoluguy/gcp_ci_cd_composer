@@ -17,7 +17,7 @@ default_args={
 }
 
 
-dag = DAG('sample_dag_v1_1_1',
+dag = DAG('dm_dag_1_v1_1_1',
         default_args=default_args,
         description='Datamart Template DAG',
         schedule_interval=timedelta(days=1)
@@ -25,13 +25,13 @@ dag = DAG('sample_dag_v1_1_1',
 
 
 display_msg = BashOperator(task_id='print_msg',
-                    bash_command='echo "Connecting Bigquery..............."' ,
+                    bash_command='echo "Connecting Bigquery ..............."' ,
                     dag=dag)
 
 run_bigquery = BigQueryOperator(
     task_id='get_sample_data',
-    sql='sql/bigquery_sample.sql',
+    sql='bql/bigquery_sample.sql',
     use_legacy_sql=False,
     dag=dag
 )
-display_msg.set_downstream(run_bigquery)
+display_msg >> run_bigquery
