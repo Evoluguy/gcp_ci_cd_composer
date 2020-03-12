@@ -29,7 +29,7 @@ display_msg = BashOperator(task_id='print_msg',
                     dag=dag)
 
 delay_wait = BashOperator(task_id='Sleeping',
-                    bash_command='sleep 2m' ,
+                    bash_command='sleep 5m' ,
                     dag=dag)                    
 
 run_bigquery = BigQueryOperator(
