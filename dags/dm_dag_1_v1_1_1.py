@@ -32,7 +32,7 @@ delay_wait = BashOperator(task_id='Sleeping',
                     bash_command='sleep 5m' ,
                     dag=dag)            
 
-delay_wait_2 = BashOperator(task_id='Sleeping 2',
+delay_wait_2 = BashOperator(task_id='Sleeping_2',
                     bash_command='sleep 20s' ,
                     dag=dag) 
 
