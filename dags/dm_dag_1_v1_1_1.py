@@ -30,7 +30,11 @@ display_msg = BashOperator(task_id='print_msg',
 
 delay_wait = BashOperator(task_id='Sleeping',
                     bash_command='sleep 5m' ,
-                    dag=dag)                    
+                    dag=dag)            
+
+delay_wait_2 = BashOperator(task_id='Sleeping 2',
+                    bash_command='sleep 20s' ,
+                    dag=dag) 
 
 run_bigquery = BigQueryOperator(
     task_id='get_sample_data',
@@ -38,4 +42,4 @@ run_bigquery = BigQueryOperator(
     use_legacy_sql=False,
     dag=dag
 )
-display_msg >> delay_wait >>  run_bigquery
+display_msg >> delay_wait >> delay_wait_2 >> run_bigquery
