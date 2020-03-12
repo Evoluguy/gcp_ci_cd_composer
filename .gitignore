@@ -8,3 +8,4 @@ airflow.db
 unittests.cfg
 tmp/
 deployed/
+.venv

@@ -28,10 +28,14 @@ display_msg = BashOperator(task_id='print_msg',
                     bash_command='echo "Connecting Bigquery ..............."' ,
                     dag=dag)
 
+delay_wait = BashOperator(task_id='Sleeping',
+                    bash_command='sleep 2m' ,
+                    dag=dag)                    
+
 run_bigquery = BigQueryOperator(
     task_id='get_sample_data',
     sql='bql/bigquery_sample.sql',
     use_legacy_sql=False,
     dag=dag
 )
-display_msg >> run_bigquery
+display_msg >> delay_wait >>  run_bigquery
