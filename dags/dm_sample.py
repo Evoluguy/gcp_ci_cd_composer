@@ -17,7 +17,7 @@ default_args={
 }
 
 
-dag = DAG('dm_dag_2_v1_1_1',
+dag = DAG('dm_sample',
         default_args=default_args,
         description='Datamart Template DAG',
         schedule_interval=timedelta(days=1)
