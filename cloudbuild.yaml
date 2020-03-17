@@ -26,7 +26,7 @@ steps:
     [ '-m',
     'rsync','-r', '-c','-x', '.*\.pyc|airflow_monitoring.py',
     'bql/',
-    '${_COMPOSER_BUCKET_URL}/dags/bql/'
+    '${_COMPOSER_BUCKET}/dags/bql/'
     ]
     
 - name: 'gcr.io/cloud-builders/gsutil'
@@ -35,7 +35,7 @@ steps:
     [ '-m',
     'rsync','-r', '-c','-x', '.*\.pyc|airflow_monitoring.py',
     'dags/',
-    '${_COMPOSER_BUCKET_URL}/dags/'
+    '${_COMPOSER_BUCKET}/dags/'
     ]
 
 substitutions:

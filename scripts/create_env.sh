@@ -18,5 +18,5 @@ COMPOSER_GCS_BUCKET=$(gcloud composer environments describe ${COMPOSER_NAME} --l
 gcloud beta builds triggers create github \
       --repo-owner="Evoluguy" \
       --repo-name="gcp_ci_cd_composer" --pull-request-pattern="^master$" \
-      --build-config="../cloudbuild.yaml" \
+      --build-config="cloudbuild.yaml" \
       --substitutions _COMPOSER_BUCKET_URL=${COMPOSER_GCS_BUCKET}
