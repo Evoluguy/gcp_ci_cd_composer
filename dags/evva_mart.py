@@ -20,7 +20,7 @@ default_args={
 dag = DAG('dm_dag_1_v1_1_1',
         default_args=default_args,
         description='Datamart Template DAG',
-        schedule_interval=timedelta(days=1)
+        schedule_interval=timedelta(minutes=5)
         )
 
 
@@ -28,10 +28,18 @@ display_msg = BashOperator(task_id='print_msg',
                     bash_command='echo "Connecting Bigquery ..............."' ,
                     dag=dag)
 
+delay_wait = BashOperator(task_id='Sleeping',
+                    bash_command='sleep 5m' ,
+                    dag=dag)            
+
+# delay_wait_2 = BashOperator(task_id='Sleeping_2',
+#                     bash_command='sleep 20s' ,
+#                     dag=dag) 
+
 run_bigquery = BigQueryOperator(
     task_id='get_sample_data',
     sql='bql/bigquery_sample.sql',
     use_legacy_sql=False,
     dag=dag
 )
-display_msg >> run_bigquery
+display_msg >> delay_wait  >> run_bigquery
